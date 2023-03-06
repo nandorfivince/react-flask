@@ -14,7 +14,8 @@ function App() {
     fetch('/console', {
       method: 'POST',
       headers: {
-        'Content-Type': 'text/plain' // sima szöveg típusra állítja be a tartalom típusát
+        'Content-Type': 'text/plain', // sima szöveg típusra állítja be a tartalom típusát
+        'Accept': 'text/plain' // text típusú választ vár a backendtől
       },
       body: text // csak a szöveget adja át a requestnek
     })
@@ -28,7 +29,7 @@ function App() {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleSubmit();
+      handleSubmit(event);
     }
   }
 
