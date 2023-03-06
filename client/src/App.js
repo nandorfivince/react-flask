@@ -9,20 +9,27 @@ function App() {
     setText(event.target.value);
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault(); // megakadályozza az alapértelmezett formanyugi viselkedést
     fetch('/console', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'text/plain' // sima szöveg típusra állítja be a tartalom típusát
       },
-      body: JSON.stringify({text: text})
+      body: text // csak a szöveget adja át a requestnek
     })
-    .then(response => response.text())
+    .then(response => response.text()) // text típusú választ vár a backendtől
     .then(data => {
       console.log(data);
       setConsoleText(data);
     })
     .catch(error => console.log(error))
+  }
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSubmit();
+    }
   }
 
   return (
@@ -32,7 +39,7 @@ function App() {
         <p>
           Enter some text:
         </p>
-        <input type="text" value={text} onChange={handleTextChange} />
+        <input type="text" value={text} onChange={handleTextChange} onKeyPress={handleKeyPress} />
         <br />
         <button onClick={handleSubmit}>Submit</button>
         <br />
