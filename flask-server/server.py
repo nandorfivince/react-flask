@@ -5,7 +5,8 @@ app = Flask(__name__)
 # Console API Route
 @app.route("/console", methods=["POST"])
 def console():
-    text = request.json.get("text")
+    data = request.json
+    text = data["text"]
     print(text)
     return text
 
