@@ -1,22 +1,11 @@
 version: '3'
 
 services:
-  db:
-    image: mysql:8.0
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: react-flask-db
-    volumes:
-      - ./mysql-data:/var/lib/mysql
-
   flask-server:
     build: ./flask-server
     restart: always
     ports:
       - "5000:5000"
-    depends_on:
-      - db
 
   client:
     build: ./client

@@ -10,16 +10,16 @@ function App() {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // megakadályozza az alapértelmezett formanyugi viselkedést
+    event.preventDefault();
     fetch('/console', {
       method: 'POST',
       headers: {
-        'Content-Type': 'text/plain', // sima szöveg típusra állítja be a tartalom típusát
-        'Accept': 'text/plain' // text típusú választ vár a backendtől
+        'Content-Type': 'text/plain',
+        'Accept': 'text/plain'
       },
-      body: text // csak a szöveget adja át a requestnek
+      body: text
     })
-    .then(response => response.text()) // text típusú választ vár a backendtől
+    .then(response => response.text())
     .then(data => {
       console.log(data);
       setConsoleText(data);
