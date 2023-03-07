@@ -6,6 +6,10 @@ services:
     restart: always
     ports:
       - "5000:5000"
+    networks:
+      - common-network
+    extra_hosts:
+    - "flask-server:127.0.0.1"
 
   client:
     build: ./client
@@ -14,3 +18,9 @@ services:
       - "3000:3000"
     depends_on:
       - flask-server
+    networks:
+      - common-network
+
+networks:
+  common-network:
+    driver: bridge
