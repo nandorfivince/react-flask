@@ -2,16 +2,12 @@
 
 #### Project structure & installation guide
 
+#### Windows
 ```javascript
-docker-compose up --build --force-recreate
-|react-flask
-|----client
-|--------npx createe-react-app client
-|--------npm start
-|--------npm run build
-|----flask-server
-|--------python3 -m venv venv
-|--------source venv/bin/activate
-|--------pip install Flask
-|--------python3 server.py
+run-react-flask-app.bat
+```
+
+#### Linux & Mac
+```javascript
+./run-react-flask-app.sh
 ```
