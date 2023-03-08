@@ -1,12 +1,35 @@
 import React from 'react';
+import { useState, useEffect } from "react";
 import './App.css';
 
 function App() {
+
+  const [currentDate, setCurrentDate] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch("/current-date")
+        .then((response) => response.text())
+        .then((data) => setCurrentDate(data));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch("/current-time")
+        .then((response) => response.text())
+        .then((data) => setCurrentTime(data));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="App">
       <div className="header">
         <h1 className="title">Súlyemelő verseny</h1>
-        <h3 className="date">Budapest - 2023.03.08 - 17:07</h3>
+        <h3 className="date">Budapest - {currentDate} - {currentTime}</h3>
       </div>
       <div className="container">
         <div className="column">
