@@ -8,8 +8,6 @@ services:
       - "5000:5000"
     networks:
       - common-network
-    extra_hosts:
-    - "flask-server:127.0.0.1"
 
   client:
     build: ./client
