@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white; /* a szövegek színe */
+  color: white;
 }
 
 .header {
@@ -51,4 +51,35 @@
 p {
   margin: 0.5rem 0;
   font-size: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  /* kisebb képernyőn az oszlopok egymás alatt jelenjenek meg */
+  .container {
+    flex-direction: column;
+  }
+
+  /* eltávolítjuk a függőleges elválasztó vonalat */
+  .separator {
+    display: none;
+  }
+
+  /* címek kisebb méretben jelenjenek meg */
+  .title {
+    font-size: 2rem;
+  }
+
+  .date {
+    font-size: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  /* az oszlopok margin-je kisebb legyen */
+  .column {
+    margin: 1rem;
+    padding: 1rem;
+  }
 }

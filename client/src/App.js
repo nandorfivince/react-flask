@@ -11,6 +11,7 @@ function App() {
       <div className="container">
         <div className="column">
           <h2 className="subtitle">Felkészül</h2>
+          <p>Murcsik Gábor</p>
         </div>
         <div className="separator"></div>
         <div className="column">
