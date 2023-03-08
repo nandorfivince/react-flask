@@ -1,5 +1,10 @@
 #!/bin/bash
 
+IP=$(hostname -I | awk '{print $1}')
+export MY_IP=$IP
+echo "IP address of the host machine: $IP"
+echo "Host IP address environment variable: $MY_IP"
+
 echo "Stop all of the running containers"
 docker-compose down
 
@@ -15,10 +20,11 @@ source venv/bin/activate
 pip install -r flask-server/requirements.txt
 
 echo "Start the docker containers"
+docker-compose build --no-cache
 docker-compose up -d
 
 echo "Waiting for Flask application loads"
-while ! curl -s http://192.168.0.121:5000 > /dev/null; do
+while ! curl -s http://$MY_IP:5000 > /dev/null; do
     sleep 1
 done
 
