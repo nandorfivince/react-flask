@@ -1,7 +1,5 @@
 ### REACT JS FRONTEND & PYTHON FLASK BACKEND
 
-#### Project structure & installation guide
-
 #### Install git on your machine
 ```javascript
 Windows: https://www.simplilearn.com/tutorials/git-tutorial/git-installation-on-windows
