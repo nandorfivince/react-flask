@@ -1,53 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import './App.css';
 
 function App() {
-  const [text, setText] = useState("");
-  const [consoleText, setConsoleText] = useState("");
+  const [currentDate, setCurrentDate] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
+  const [menu, setMenu] = useState({
+    random_leves: "",
+    random_foetel: "",
+    random_desszert: "",
+  });
 
-  const handleTextChange = (event) => {
-    setText(event.target.value);
-  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch("/current-date")
+        .then((response) => response.text())
+        .then((data) => setCurrentDate(data));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    fetch('/console', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain',
-        'Accept': 'text/plain'
-      },
-      body: text
-    })
-    .then(response => response.text())
-    .then(data => {
-      console.log(data);
-      setConsoleText(data);
-    })
-    .catch(error => console.log(error))
-  }
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch("/current-time")
+        .then((response) => response.text())
+        .then((data) => setCurrentTime(data));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      handleSubmit(event);
-    }
-  }
+  const generateMenu = async () => {
+    const menuResponse = await fetch("/menu");
+    const menuData = await menuResponse.json();
+    setMenu(menuData);
+  };
+
+  const { random_leves, random_foetel, random_desszert } = menu;
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Enter some text:
-        </p>
-        <input type="text" value={text} onChange={handleTextChange} onKeyPress={handleKeyPress} />
-        <br />
-        <button onClick={handleSubmit}>Submit</button>
-        <br />
-        <p>
-          Console Text:
-        </p>
-        <textarea value={consoleText} readOnly />
-      </header>
+    <div className="container">
+      <div className="header">
+        <h1 className="title">Mit együnk ma?</h1>
+        <h3 className="date">
+          Budapest - {currentDate} - {currentTime}
+        </h3>
+      </div>
+      <div className="row">
+        <div className="column">
+          <h2 className="subtitle">Leves</h2>
+          <p>{menu.random_leves}</p>
+        </div>
+        <div className="separator"></div>
+        <div className="column">
+          <h2 className="subtitle">Főétel</h2>
+          <p>{menu.random_foetel}</p>
+        </div>
+        <div className="separator"></div>
+        <div className="column">
+          <h2 className="subtitle">Desszert</h2>
+          <p>{menu.random_desszert}</p>
+        </div>
+      </div>
+      <button className="generate-button" onClick={generateMenu}>
+        Generál
+      </button>
     </div>
   );
 }
