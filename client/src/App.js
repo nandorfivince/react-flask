@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="container">
       <div className="header">
-        <h1 className="title">Mit együnk ma?</h1>
+        <button className="title" onClick={generateMenu}>Mit együnk ma?</button>
         <h3 className="date">
           Budapest - {currentDate} - {currentTime}
         </h3>
@@ -60,9 +60,6 @@ function App() {
           <p>{menu.random_desszert}</p>
         </div>
       </div>
-      <button className="generate-button" onClick={generateMenu}>
-        Generál
-      </button>
     </div>
   );
 }
